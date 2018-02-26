@@ -206,11 +206,13 @@ const createInstagramUser = (obj) => {
       
       axios.get(url).then(response => {
         csrfToken = getCookie(response, 'csrftoken');
+        console.log(csrfToken);
         return axios(getRequestObject('https://www.instagram.com/accounts/web_create_ajax/attempt/', dataObject, { csrftoken : csrfToken }))
     
       })
       .then(function (response) {
         if(response && response.data.dryrun_passed) {
+          console.log(response.data);
           dataObject = { email: email, password: password, username: username, first_name: first_name, seamless_login_enabled: 1};
           return axios(getRequestObject('https://www.instagram.com/accounts/web_create_ajax/', dataObject, { csrftoken : csrfToken }))
         }
@@ -229,7 +231,7 @@ const createInstagramUser = (obj) => {
 
           console.log(response.data);
 
-          
+
           if(response.data && response.data.account_created) {
             resolve(dataObject, { csrftoken : csrfToken, sessionid: sessionid }, mailbox);
           }
