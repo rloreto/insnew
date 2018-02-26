@@ -226,7 +226,10 @@ const createInstagramUser = (obj) => {
             fullName: dataObject.first_name 
           });
           instagramUser.save();
-    
+
+          console.log(response.data);
+
+          
           if(response.data && response.data.account_created) {
             resolve(dataObject, { csrftoken : csrfToken, sessionid: sessionid }, mailbox);
           }

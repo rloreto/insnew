@@ -1,0 +1,50 @@
+.then(function (response) {
+        debugger;
+        if(response) {
+          var data = new FormData();
+          data.append('my_file', fs.createReadStream('./images/download.jpeg'));
+      
+          return axios(getRequestObject('https://www.instagram.com/accounts/web_change_profile_picture/', data, { csrftoken : csrfToken, sessionid: sessionid }))
+        }
+      })
+      .then(function (response) {
+        debugger;
+        if(response) {
+          return axios(getRequestObject('https://www.instagram.com/web/friendships/2233352410/follow/', null, { csrftoken : csrfToken, sessionid: sessionid }))
+        }
+      })
+      .then(function (response) {
+        if (response) {
+          console.log(dataObject.username + ' - ' + dataObject.password);
+          console.log('ok');
+        } else {
+          console.log('failed');
+        }
+      })
+
+
+                var instagramUser = new InstagramUser({ 
+            username: dataObject.username, 
+            password: dataObject.password, 
+            email: dataObject.email, 
+            fullName: dataObject.first_name 
+          });
+          instagramUser.save();
+    
+          if(response.data && response.data.account_created) {
+            resolve();
+            dataObject = { 
+              first_name: dataObject.first_name,
+              email: dataObject.email,
+              username: dataObject.username,
+              phone_number: randomstring.generate({
+                length: 9,
+                charset: 'numeric'
+              }),
+              gender:3,
+              biography:'',
+              external_url:'',
+              chaining_enabled: '',
+              private_account: 'on'
+            };
+        return axios(getRequestObject('https://www.instagram.com/accounts/edit/', dataObject, { csrftoken : csrfToken, sessionid: sessionid }));
