@@ -41,10 +41,9 @@ var InstagramUser = mongoose.model('InstagramUser', {
   challangePending: Boolean
 });
 
-var proxyServer = '13.95.193.139'
-var proxyPort = '3128'
+var proxyServer = ''
+var proxyPort = ''
   
-const request = require('request-promise');
 
 var options = {
   anonymityLevels: ['transparent'],
